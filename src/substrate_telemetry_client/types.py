@@ -11,6 +11,7 @@ class NetworkInfo:
 @dataclass
 class Benchmarks:
     cpu_hashrate_score: Optional[Any] = None
+    parallel_cpu_hashrate_score: Optional[Any] = None
     memory_memcpy_score: Optional[Any] = None
     disk_sequential_write_score: Optional[Any] = None
     disk_random_write_score: Optional[Any] = None
@@ -83,6 +84,7 @@ class ChainStats:
     core_count: Ranking
     cpu: Ranking
     cpu_hashrate_score: Ranking
+    parallel_cpu_hashrate_score: Ranking
     cpu_vendor: Ranking
     disk_random_write_score: Ranking
     disk_sequential_write_score: Ranking
