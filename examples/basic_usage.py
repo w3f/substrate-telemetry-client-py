@@ -12,7 +12,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def main():
-    with TelemetryClient(chain=ChainGenesis.POLKADOT) as client:
+    with TelemetryClient(chain=ChainGenesis.POLKADOT, feed_version='33') as client:
         logger.info("Connection established. Waiting 5 seconds for initial data...")
         time.sleep(5)
 

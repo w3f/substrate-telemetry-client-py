@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from threading import Lock
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from .constants import FEED_VERSION, Action
+from .constants import DEFAULT_FEED_VERSION, Action
 from .exceptions import FeedVersionError
 from .types import (
     Benchmarks,
@@ -21,9 +21,10 @@ from .types import (
 logger = logging.getLogger(__name__)
 
 class TelemetryEngine:
-    def __init__(self):
+    def __init__(self, feed_version: str = DEFAULT_FEED_VERSION):
         self.nodes: Dict[int, NodeInfo] = {}
         self.chain_stats: Optional[ChainStats] = None
+        self.feed_version = feed_version
         self._lock = Lock()
 
     def process_message(self, message: str) -> None:
@@ -47,9 +48,9 @@ class TelemetryEngine:
 
     def handle_action(self, action_id: Action, payload: Any) -> None:
         if action_id == Action.FeedVersion:
-            if str(payload) != FEED_VERSION:
+            if str(payload) != self.feed_version:
                 raise FeedVersionError(
-                    f"Feed version mismatch: expected {FEED_VERSION}, got {payload}."
+                    f"Feed version mismatch: expected {self.feed_version}, got {payload}."
                 )
         elif action_id == Action.AddedNode:
             self._handle_added_node(payload)

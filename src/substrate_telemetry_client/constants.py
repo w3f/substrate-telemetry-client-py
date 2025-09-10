@@ -25,8 +25,9 @@ class Action(IntEnum):
     StaleNode = 20
     NodeIOUpdate = 21
     ChainStatsUpdate = 22
+    TelemetryInfo = 23
 
-FEED_VERSION = "32"
+DEFAULT_FEED_VERSION = "33"
 DEFAULT_WS_URL = "wss://feed.telemetry.polkadot.io/feed/"
 
 class ChainGenesis(str, Enum):
