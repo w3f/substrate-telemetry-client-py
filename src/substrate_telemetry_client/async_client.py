@@ -5,7 +5,7 @@ from typing import Optional, Union
 
 import websockets
 
-from .constants import DEFAULT_WS_URL, ChainGenesis
+from .constants import DEFAULT_WS_URL, DEFAULT_FEED_VERSION, ChainGenesis
 from .core import TelemetryEngine
 from .exceptions import FeedVersionError
 
@@ -17,8 +17,9 @@ class AsyncTelemetryClient(TelemetryEngine):
         self,
         url: str = DEFAULT_WS_URL,
         chain: Union[ChainGenesis, str] = ChainGenesis.POLKADOT,
+        feed_version: str = DEFAULT_FEED_VERSION,
     ):
-        super().__init__()
+        super().__init__(feed_version=feed_version)
         self.url = url
         self.chain = chain.value if isinstance(chain, ChainGenesis) else chain
         self._ws: Optional[websockets.WebSocketClientProtocol] = None
